@@ -572,7 +572,7 @@
               <div className="proj-card" key={p.id} onClick={() => onOpen(p.id)}>
                 <div className="proj-cover" style={{background:p.cover}}>
                   <div className="tex" />
-                  <SmartImg src={`images/${p.id}-cover.jpg`} alt={p.name} />
+                  <SmartImg src={p.coverImage || `images/${p.id}-cover.jpg`} alt={p.name} />
                   <div className="name">{p.name}<br/><span style={{fontSize:27,opacity:0.85}}>{p.nameLine2}</span></div>
                 </div>
                 <div className="proj-btn">{p.name.toUpperCase()} {p.nameLine2.toUpperCase()}</div>
@@ -670,7 +670,7 @@
               {p.archive === "single" && (
                 <div className="ba-block" style={{marginTop:0}}>
                   <div className="ba-img" style={{background:p.cover}}>
-                    <SmartImg src={`images/${p.id}-archive.jpg`} alt={`${p.name} archive`} />
+                    <SmartImg src={p.archiveImage || `images/${p.id}-archive.jpg`} alt={`${p.name} archive`} />
                   </div>
                 </div>
               )}
@@ -680,14 +680,14 @@
                   <div className="ba-block" style={{marginTop:0}}>
                     <div className="ba-label">BEFORE</div>
                     <div className="ba-img">
-                      <SmartImg src={`images/${p.id}-before.jpg`} alt={`${p.name} before`} />
+                      <SmartImg src={p.beforeImage || `images/${p.id}-before.jpg`} alt={`${p.name} before`} />
                     </div>
                   </div>
 
                   <div className="ba-block">
                     <div className="ba-label">AFTER</div>
                     <div className="ba-img" style={{background:p.cover}}>
-                      <SmartImg src={`images/${p.id}-after.jpg`} alt={`${p.name} after`} />
+                      <SmartImg src={p.afterImage || `images/${p.id}-after.jpg`} alt={`${p.name} after`} />
                     </div>
                   </div>
                 </>
@@ -756,7 +756,7 @@
       const [page, setPageState] = React.useState(initial.page);
       const [openId, setOpenIdState] = React.useState(initial.openId);
       const [tweakMode, setTweakMode] = React.useState(false);
-      const [tweaks, setTweaks] = React.useState(TWEAK_DEFAULTS);
+      const [tweaks, setTweaks] = React.useState(TWEAK_DEFAULTS); const [,__pl]=React.useState(0); React.useEffect(()=>{fetch("https://ddl-dashboard.vercel.app/api/projects").then(r=>r.json()).then(d=>{if(d&&Array.isArray(d.projects)&&d.projects.length){DATA.projects=d.projects;__pl(n=>n+1);}}).catch(()=>{});},[]);
 
       const writeHash = (page, openId) => {
         let h = "#/" + (page === "home" ? "" : page);
