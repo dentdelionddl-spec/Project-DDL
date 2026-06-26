@@ -558,7 +558,8 @@
 
     // Image with graceful fallback. If src 404s, the img hides and the placeholder shows.
     function SmartImg({ src, alt }) {
-      const [ok, setOk] = React.useState(true); React.useEffect(() => { setOk(true); }, [src]);
+      const [ok, setOk] = React.useState(true);
+      React.useEffect(() => { setOk(true); }, [src]); React.useEffect(() => { setOk(true); }, [src]);
       if (!src || !ok) return null;
       return <img src={src} alt={alt || ""} onError={() => setOk(false)} />;
     }
@@ -573,7 +574,6 @@
                 <div className="proj-cover" style={{background:p.cover}}>
                   <div className="tex" />
                   <SmartImg src={p.coverImage || `images/${p.id}-cover.jpg`} alt={p.name} />
-                  <div className="name">{p.name}<br/><span style={{fontSize:27,opacity:0.85}}>{p.nameLine2}</span></div>
                 </div>
                 <div className="proj-btn">{p.name.toUpperCase()} {p.nameLine2.toUpperCase()}</div>
               </div>
