@@ -558,7 +558,7 @@
 
     // Image with graceful fallback. If src 404s, the img hides and the placeholder shows.
     function SmartImg({ src, alt }) {
-      const [ok, setOk] = React.useState(true);
+      const [ok, setOk] = React.useState(true); React.useEffect(() => { setOk(true); }, [src]);
       if (!src || !ok) return null;
       return <img src={src} alt={alt || ""} onError={() => setOk(false)} />;
     }
