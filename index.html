@@ -40,11 +40,18 @@
     a{color:inherit;text-decoration:none}
     button{font-family:inherit;cursor:pointer;border:none;background:none;padding:0;color:inherit}
     img{display:block;max-width:100%}
-    .proj-cover img, .ba-img img{
+    .ba-img img{
       position:absolute; inset:0;
       width:100%; height:100%;
       object-fit:cover;
     }
+    .proj-cover img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+    .proj-cover:has(img){ aspect-ratio:auto; }
+    .proj-cover:has(img) .tex{ display:none; }
     .ba-img{position:relative}
 
     .mono{font-family:var(--mono);font-weight:400}
