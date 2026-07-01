@@ -53,6 +53,10 @@
     .proj-cover:has(img){ aspect-ratio:auto; }
     .proj-cover:has(img) .tex{ display:none; }
     .ba-img{position:relative}
+    .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .gallery-item{position:relative;aspect-ratio:3/4;overflow:hidden}
+    .gallery-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    @media(min-width:768px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
 
     .mono{font-family:var(--mono);font-weight:400}
     .label{
@@ -668,21 +672,21 @@
                 </div>
               </div>
 
-              {p.archive !== "none" && (
+              {p.archiveType && (
                 <div className="detail-sec" style={{marginTop:50,marginBottom:0}}>
                   <div className="detail-sec-label" style={{marginBottom:50}}>/ ARCHIVE</div>
                 </div>
               )}
 
-              {p.archive === "single" && (
+              {p.archiveType === "단일" && (
                 <div className="ba-block" style={{marginTop:0}}>
                   <div className="ba-img" style={{background:p.cover}}>
-                    <SmartImg src={p.archiveImage || `images/${p.id}-archive.jpg`} alt={`${p.name} archive`} />
+                    <SmartImg src={(p.archive && p.archive[0]) || `images/${p.id}-archive.jpg`} alt={`${p.name} archive`} />
                   </div>
                 </div>
               )}
 
-              {(!p.archive || p.archive === "ba") && (
+              {p.archiveType === "Before/After" && (
                 <>
                   <div className="ba-block" style={{marginTop:0}}>
                     <div className="ba-label">BEFORE</div>
@@ -698,6 +702,16 @@
                     </div>
                   </div>
                 </>
+              )}
+
+              {p.archiveType === "갤러리" && (
+                <div className="gallery-grid" style={{marginTop:0}}>
+                  {(p.archive || []).map((gsrc, gi) => (
+                    <div className="gallery-item" key={gi} style={{background:p.cover}}>
+                      <SmartImg src={gsrc} alt="archive" />
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           </div>
